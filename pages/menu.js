@@ -5,7 +5,7 @@ export default function Menu() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Bai Yok Modern Thai Cuisine</title>
+        <title>Thai Nine Mosman</title>
       </Head>
 
       <main className={styles.main}>

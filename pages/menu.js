@@ -3,13 +3,13 @@ import Head from 'next/head'
 
 export default function Menu() {
   return (
-    <div className={styles.container}>
+    <div className="styles.container">
       <Head>
         <title>Thai Nine Mosman</title>
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Menu</h1>
+      <main className="styles.main">
+        <h1 className="styles.title">Menu</h1>
       </main>
     </div>
   )

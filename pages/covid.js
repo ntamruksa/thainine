@@ -30,7 +30,6 @@ export default function Covid() {
     e.preventDefault()
     const data ={email, firstName, lastName, phone, optIn, date: new Date()}
     const payload ={text: JSON.stringify(data), channel: 'thainine'}
-    console.log('url', process.env.NEXT_PUBLIC_SLACK_HOOK_URL)
     fetch(process.env.NEXT_PUBLIC_SLACK_HOOK_URL, {
       method: 'post',
       body: JSON.stringify(payload)

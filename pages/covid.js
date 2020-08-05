@@ -12,6 +12,7 @@ export default function Covid() {
   const [lastName, setLastName] = useState('')
   const [phone, setPhone] = useState('')
   const [optIn, setOptIn] = useState(false)
+  const [party, setParty] = useState(1)
   const handleInputChange = (e) => {
     const value = e.target.value
     if (e.target.id === 'formBasicEmail') {
@@ -24,11 +25,13 @@ export default function Covid() {
       setPhone(value)
     } else if (e.target.id === 'formBasicOptIn') {
       setOptIn(e.target.checked)
+    } else if (e.target.id === 'formParty') {
+      setParty(value)
     }
   }
   const handleSubmitForm = (e) => {
     e.preventDefault()
-    const data ={email, firstName, lastName, phone, optIn, date: new Date()}
+    const data ={email, firstName, lastName, phone, optIn, party, date: new Date()}
     const payload ={text: JSON.stringify(data), channel: 'thainine'}
     fetch(process.env.NEXT_PUBLIC_SLACK_HOOK_URL, {
       method: 'post',
@@ -86,6 +89,15 @@ export default function Covid() {
             <Form.Control
               className='paragraph-secondary'
               type='text'
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+          <Form.Group controlId='formParty' className='u-margin-bottom-med'>
+            <Form.Label>Number of people in the group</Form.Label>
+            <Form.Control
+              className='paragraph-secondary'
+              type='number'
+              defaultValue='1'
               onChange={handleInputChange}
             />
           </Form.Group>

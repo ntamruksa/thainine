@@ -1,4 +1,51 @@
 .menubar {
   display: flex;
-  
+}
+.menu-photo {
+  height: 40rem;
+  width: 100%;
+  object-fit: cover;
+  @include respond(phone) {
+    height: 30rem;
+  }
+}
+.menu-modal-title {
+  color: $color-black;
+  padding-left: 2rem;
+  font-size: 3.2rem;
+}
+.menu-modal-subtitle {
+  padding-left: 2rem;
+  font-size: 1.6rem;
+}
+.menu-modal-price {
+  text-align: right;
+  color: $color-white;
+  font-weight: 500;
+  background-color: $color-black;
+}
+.menu-modal-option-header {
+  background-color: $color-grey-light-1;
+  padding: 2rem;
+  &-title {
+    color: $color-black;
+    font-size: 1.8rem;
+  }
+  &-subtitle {
+    font-size: 1.4rem;
+  }
+}
+.form-check-label {
+  width: 100%;
+  padding-right: 0 !important;
+}
+.menu-modal-option-body {
+  padding: 2rem;
+  &-title {
+    padding-right: 0;
+  }
+  &-price {
+    text-align: right;
+    padding-left: 0;
+  }
 }

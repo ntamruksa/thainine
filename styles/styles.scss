@@ -10,12 +10,17 @@
 
 @import "components/button";
 @import "components/composition";
+@import "components/menu";
 
 @import "layout/header";
 @import "layout/grid";
 @import "layout/form";
+@import "layout/footer";
 
 @import "pages/home";
 @import "pages/covid";
 @import "pages/thankyou";
+@import "pages/book";
+@import "pages/markdown";
+
 

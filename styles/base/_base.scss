@@ -23,5 +23,26 @@ html {
 }
 
 body {
+  background: $color-primary-background;
+  font-weight: 500;
+  font-size: 16px;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
+button, a {
+  outline: none !important;
+  color: $color-primary-dark;
+  text-decoration: none !important;
+}
+img{
+  image-rendering: auto;
+  max-width: 100%;
+}
+p {
+  font-size: 1.3rem;
+  color: $color-grey-dark;
+}
+.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6 {
+  color: $color-grey-dark;
+}
+input, select { font-size: 100%; }

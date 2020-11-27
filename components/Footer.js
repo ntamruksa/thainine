@@ -1,15 +1,24 @@
-// import styles from '../styles/Home.module.css'
+import { Image, Row, Col } from 'react-bootstrap'
 
-const Footer = () => (
-  <footer className={styles.footer}>
-  <a
-    href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-    target='_blank'
-    rel='noopener noreferrer'>
-    Powered by{' '}
-    <img src='/vercel.svg' alt='Vercel Logo' className={styles.logo} />
-  </a>
-</footer>
-)
+const Footer = () => {
+  return (
+    <footer className='footer'>
+      <Col className='align-items-center d-flex flex-column text-100'>
+        <div>
+        Thai Nine - 2020
+        </div>
+        <div>
+          <a target='_blank' rel='noreferrer' href='/privacy'>
+            Privacy Policy
+          </a>{' '}
+          |{' '}
+          <a target='_blank' rel='noreferrer' href='/terms'>
+            Terms &amp; Conditions
+          </a>
+        </div>
+      </Col>
+    </footer>
+  )
+}
 
-export default Footer;
+export default Footer

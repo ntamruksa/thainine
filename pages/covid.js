@@ -1,6 +1,7 @@
-import { Form } from 'react-bootstrap'
+import { Form, Button, Container } from 'react-bootstrap'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import api from '../services/API'
 
 
 // import styles from '../styles/Home.module.css'
@@ -33,18 +34,24 @@ export default function Covid() {
     e.preventDefault()
     const data ={email, firstName, lastName, phone, optIn, party, date: new Date()}
     const payload ={text: JSON.stringify(data), channel: 'thainine'}
-    fetch(process.env.NEXT_PUBLIC_SLACK_HOOK_URL, {
-      method: 'post',
-      body: JSON.stringify(payload)
-    }).then((res) => {
-      localStorage.setItem('covidEmail', email);
-      localStorage.setItem('covidFirstName', firstName);
-      localStorage.setItem('covidLastName', lastName);
-      localStorage.setItem('covidPhone', phone);
-      router.push('/thankyou')
-    })
+    // fetch(process.env.NEXT_PUBLIC_SLACK_HOOK_URL, {
+    //   method: 'post',
+    //   body: JSON.stringify(payload)
+    // }).then((res) => {
+      api.checkin(data).then((res) => {
+        localStorage.setItem('covidEmail', email);
+        localStorage.setItem('covidFirstName', firstName);
+        localStorage.setItem('covidLastName', lastName);
+        localStorage.setItem('covidPhone', phone);
+        router.push('/thankyou')
+      }).catch((err) => {
+        console.error(err)
+        router.push('/thankyou')
+      })
+    // })
   }
   return (
+    <Container>
     <section className='section-covid'>
       <div className='u-center-text u-margin-bottom-med'>
         <h2 className='heading-secondary u-margin-bottom-small'>
@@ -118,14 +125,15 @@ export default function Covid() {
               onClick={handleInputChange}
             />
           </Form.Group>
-          <button
-            type='submit'
-            className='btn btn--main btn--animated paragraph-secondary'
-            onClick={handleSubmitForm}>
-            Submit
-          </button>
+          <Button
+              className="btn-lg"
+              variant="outline-secondary"
+              onClick={handleSubmitForm}>
+              Submit
+            </Button>
         </Form>
       </div>
     </section>
+    </Container>
   )
 }

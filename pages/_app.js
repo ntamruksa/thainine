@@ -1,4 +1,5 @@
 import '../styles/styles.scss'
+import 'react-day-picker/lib/style.css'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import Page from '../components/Page'
 

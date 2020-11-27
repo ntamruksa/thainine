@@ -77,7 +77,8 @@
   "category" : "entree",
   "available" : true,
   "itemOrder" : 8,
-  "categoryOrder" : 1
+  "categoryOrder" : 1,
+  "image" : "https://res.cloudinary.com/dua4rx5cz/image/upload/v1606463896/baiyok/pa7fgyytxs8xl4uubdex.jpg"
 }
 {
   "title" : "Crispy Squid",

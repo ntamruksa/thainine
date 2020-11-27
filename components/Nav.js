@@ -24,7 +24,7 @@ const NavPage = () => {
           <Navbar.Brand to='/'>
             <Nav.Link eventKey={0} as={Link} activeclassname='active' href='/'>
               <Image
-                src='/Logo-Baiyok-small.png'
+                src='/thainine-icon.png'
                 alt=''
                 className='site-nav--logo'
               />

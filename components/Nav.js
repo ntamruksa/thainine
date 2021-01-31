@@ -30,7 +30,7 @@ const NavPage = () => {
               />
             </Nav.Link>
           </Navbar.Brand>
-          <Link
+          {/* <Link
             href='/checkout'
             className='navbar-toggler navbar-toggler--cart'
             style={{
@@ -39,7 +39,7 @@ const NavPage = () => {
               color: '#F27A25'
             }}>
             <Icon icon='shopping-basket' size='2x' />
-          </Link>
+          </Link> */}
           <Navbar.Toggle className='hamburgerbar' />
           <Navbar.Collapse id='navbarNavDropdown'>
             <Nav activeKey={1} className='ml-auto' onSelect={closeMenu}>

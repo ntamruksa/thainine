@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { Navbar, Nav, Container, Image } from 'react-bootstrap'
+import { Navbar, Nav, Container, Image, Row } from 'react-bootstrap'
 import Icon from './common/FontAwesome'
 import { getCart } from '../services/cart'
+import CartCount from './cart/CartCount'
 
-const NavPage = () => {
+const NavPage = ({ toggleCart, globalCart }) => {
   const [isNavExpanded, setIsNavExpanded] = useState(false)
 
   const closeMenu = () => {
@@ -49,15 +50,34 @@ const NavPage = () => {
               <Link href='/menu' passHref>
                 <Nav.Link activeclassname='active'>Menu</Nav.Link>
               </Link>
-              <Link href='/book' passHref>
+              {/* <Link href='/book' passHref>
                 <Nav.Link activeclassname='active'>Reservation</Nav.Link>
-              </Link>{' '}
+              </Link>{' '} */}
               <Link href='/#section-contactus' passHref>
                 <Nav.Link activeclassname='active'>Contact</Nav.Link>
               </Link>
-              <a target="_blank" href='https://www.menulog.com.au/order/thai-nine'>
+              {/* <a target="_blank" href='https://www.menulog.com.au/order/thai-nine'>
                 <Nav.Link activeclassname='active' target="_blank" href='https://www.menulog.com.au/order/thai-nine' >Menulog Order</Nav.Link>
-              </a>
+              </a> */}
+              <Link href='#' passHref>
+                <Nav.Link activeclassname='active'>
+                  <Row
+                    className='nav-cart justify-content-center'
+                    onClick={toggleCart}>
+                    <div>Order</div>
+                    <CartCount
+                      count={
+                        globalCart
+                          ? globalCart.items.reduce(
+                              (tally, cartItem) => tally + cartItem.quantity,
+                              0
+                            )
+                          : 0
+                      }
+                    />
+                  </Row>
+                </Nav.Link>
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

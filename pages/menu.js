@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Col,
   Container,
@@ -6,39 +6,44 @@ import {
   Spinner,
   Accordion,
   Button,
-  Card
 } from 'react-bootstrap'
 import MenuItem from '../components/common/MenuItem'
 import { CATEGORIES } from '../components/StaticData'
-import Icon from '../components/common/FontAwesome'
-
+import moment from 'moment'
 import api from '../services/API'
 
-const Menu = ({}) => {
-  const [showModal, setShowModal] = useState(false)
-  const [menuitems, setMenuitems] = useState([])
-  const closeModal = () => {
-    setShowModal(false)
-  }
-
-  const cancel = () => {
-    closeModal()
-    navigate('/')
-  }
-
-  useEffect(() => {
-    console.log('load menu')
-    async function fetchData() {
-      const response = await api.getMenuItems()
-      setMenuitems(response)
-    }
-    fetchData()
-  }, [])
+const Menu = ({ hideCart, setGlobalCart }) => {
+  const timeFormat = 'hh:mm:ss'
+  const todayDate = moment().format('DD-MM-yyyy')
+  const { data: menuitems, isLoading, isError } = api.menuItemQuery()
+  const { data: businessHours } = api.businessHours()
+  const { data: dateConfig } = api.dateConfig(todayDate)
+  const today = moment().format('dddd').toLowerCase()
+  const openTime = moment('17:30:00', timeFormat)
+  const shopOpen = !(
+    businessHours?.isTodayClosed ||
+    businessHours?.closedDays?.includes(today) ||
+    moment().isBefore(openTime) ||
+    dateConfig?.date === todayDate
+  )
 
   return (
     <section className='section py-5 order-section'>
       <Container>
-        {menuitems.length === 0 ? (
+        <section className='section section-banner'>
+          <div className='notification'>
+            {businessHours?.isTodayClosed
+              ? `Online order closed today`
+              : businessHours?.closedDays?.includes(today)
+              ? `Restaurant is closed today`
+              : dateConfig?.date === todayDate
+              ? `Restaurant is closed today`
+              : moment().isBefore(openTime)
+              ? `Opens at 5:30 pm`
+              : ''}
+          </div>
+        </section>
+        {isLoading ? (
           <>
             <Spinner animation='border' variant='primary' className='mr-2' />{' '}
             Loading menu...
@@ -47,7 +52,6 @@ const Menu = ({}) => {
           <>
             {CATEGORIES.map(({ title, category }) => (
               <Accordion defaultActiveKey={title}>
-                {/* <Card> */}
                 <Row key={title}>
                   <Col md={12}>
                     <Accordion.Toggle
@@ -62,27 +66,30 @@ const Menu = ({}) => {
                     </Accordion.Toggle>
 
                     <Accordion.Collapse eventKey={title} show>
-                      {/* <div className='bg-white rounded border shadow-sm mb-4'> */}
                       <Row>
-
-                        {menuitems
-                          .filter((item) => item.category === category)
-                          // .sort((a, b) =>
-                          //   a.title.localeCompare(b.title, undefined, {
-                          //     sensitivity: 'accent'
-                          //   })
-                          // )
-                          .map((item) => (
-                              <Col md={4} sm={6} xs={12} className='d-flex flex-grow-1'>
-                              <MenuItem key={item._id} item={item} />
+                        {menuitems &&
+                          menuitems
+                            .filter((item) => item.category === category)
+                            .map((item) => (
+                              <Col
+                                key={item._id}
+                                md={4}
+                                sm={6}
+                                xs={12}
+                                className='d-flex flex-grow-1'>
+                                <MenuItem
+                                  key={item._id}
+                                  item={item}
+                                  hideCart={hideCart}
+                                  setGlobalCart={setGlobalCart}
+                                  shopOpen={shopOpen}
+                                />
                               </Col>
-                          ))}
-                          </Row>
-                      {/* </div> */}
+                            ))}
+                      </Row>
                     </Accordion.Collapse>
                   </Col>
                 </Row>
-                {/* </Card> */}
               </Accordion>
             ))}
           </>

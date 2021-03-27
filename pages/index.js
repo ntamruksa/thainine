@@ -78,9 +78,7 @@ export default function Home() {
           <Col md={4} xs={12} className='section-contactus__box'>
             <div className='section-contactus__title'>Opening hours</div>
             <div className='section-contactus__details'>
-              <div>Tuesday – Thursday: 5.30pm – 9:30pm</div>
-              <div>Friday - Saturday: 5:30pm - 7:30pm and 7:30pm - 9:30pm</div>
-              <div>Sunday: 5.30pm – 9:30pm</div>
+              <div>Tuesday – SUNDAY: 5.30pm – 9:30pm</div>
             </div>
           </Col>
         </Row>

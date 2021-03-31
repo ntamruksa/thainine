@@ -1,5 +1,4 @@
 const { connectToDatabaseUsingCache, findNotDeleted } = require('../../services/db')
-const stripe = require('../../services/stripe')
 const moment = require('moment')
 let db = null
 

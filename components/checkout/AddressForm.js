@@ -7,7 +7,7 @@ class AddressForm extends React.Component {
     this.widget = null
     this.state = {
       cannotDelivery: false,
-      validSuburb: ['CASTLECRAG', 'MIDDLE COVE', 'CASTLE COVE', 'NORTHBRIDGE', 'WILLOUGHBY', 'ROSEVILLE CHASE']
+      validSuburb: ['MOSMAN', 'CREMORNE', 'CREMORNE POINT']
     }
     this.loadWidget = this.loadWidget.bind(this)
     this.handleClose = this.handleClose.bind(this)

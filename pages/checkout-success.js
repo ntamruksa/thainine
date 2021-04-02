@@ -42,7 +42,7 @@ const CheckoutSuccess = ({ orderId, refreshCart, setGlobalCart }) => {
             {order.status === 'open' && (
               <>
                 <p className='px-4 mb-2'>{`Your credit card will not be charged until we confirmed your order.`}</p>
-                <p className='px-4 mb-2'>{`Please wait for confirmation email regarding exact pickup time and total amount.`}</p>
+                <p className='px-4 mb-2'>{`Please wait for confirmation email regarding exact pickup/delivery time and total amount.`}</p>
               </>
             )}
             {order.status !== 'open' && (

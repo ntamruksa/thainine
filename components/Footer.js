@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className='footer'>
       <Col className='align-items-center d-flex flex-column text-100'>
         <div>
-        Thai Nine - 2020
+        Thai Nine - 2021
         </div>
         <div>
           <a target='_blank' rel='noreferrer' href='/privacy'>

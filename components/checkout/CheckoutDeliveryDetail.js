@@ -6,13 +6,20 @@ const CheckoutDeliveryDetail = ({
   pickupName,
   email,
   phone,
-  address
+  address,
 }) => {
   return (
     <div>
-      <p>** Delivery fee is $3 and we are currently deliver to Castlecrag, Middle Cove, Castle Cove, Northbridge, Willoughby, and Roseville Chase **</p>
+      <h2 className='my-4'>
+        Usually delivery time is 30 mins, However if any delay occur we will
+        email you after confirm the order.
+      </h2>
+      <p>
+        ** Delivery fee is $3 and we are currently deliver to Mosman, Cremorne,
+        and Cremorne Point **
+      </p>
       <Form className='form'>
-      <AddressForm onChange={handleInputChange} address={address}/>
+        <AddressForm onChange={handleInputChange} address={address} />
         <Form.Group controlId='formPickupName' className='u-margin-bottom-med'>
           <Form.Label>Name</Form.Label>
           <Form.Control

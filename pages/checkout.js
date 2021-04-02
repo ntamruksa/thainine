@@ -67,7 +67,7 @@ export default function Checkout() {
   }
   const availableTime = Number(
     moment().add(20, 'minutes').hours().toString() +
-      moment().add(20, 'minutes').minutes().toString()
+      moment().add(20, 'minutes').minutes().toString().padStart(2, "0")
   )
   const timeList = [
     { id: 600, label: '6:00 pm', value: 1800 },

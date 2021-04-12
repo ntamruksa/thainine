@@ -32,11 +32,13 @@ const Cart = ({ open, hideCart, setGlobalCart }) => {
   const { data: businessHours } = api.businessHours()
   const { data: dateConfig } = api.dateConfig(todayDate)
   const today = moment().format('dddd').toLowerCase()
-  const openTime = moment('17:30:00', timeFormat)
+  const openTime = moment(businessHours?.openTime, timeFormat)
+  const closeTime = moment(businessHours?.closeTime, timeFormat)
   const shopOpen = !(
     businessHours?.isTodayClosed ||
     businessHours?.closedDays?.includes(today) ||
     moment().isBefore(openTime) ||
+    moment().isAfter(closeTime) ||
     dateConfig?.date === todayDate
   )
 

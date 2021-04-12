@@ -19,11 +19,14 @@ const Menu = ({ hideCart, setGlobalCart }) => {
   const { data: businessHours } = api.businessHours()
   const { data: dateConfig } = api.dateConfig(todayDate)
   const today = moment().format('dddd').toLowerCase()
-  const openTime = moment('17:30:00', timeFormat)
+  const openTime = moment(businessHours?.openTime, timeFormat)
+  const closeTime = moment(businessHours?.closeTime, timeFormat)
+
   const shopOpen = !(
     businessHours?.isTodayClosed ||
     businessHours?.closedDays?.includes(today) ||
     moment().isBefore(openTime) ||
+    moment().isAfter(closeTime) ||
     dateConfig?.date === todayDate
   )
 
@@ -39,7 +42,9 @@ const Menu = ({ hideCart, setGlobalCart }) => {
               : dateConfig?.date === todayDate
               ? `Restaurant is closed today`
               : moment().isBefore(openTime)
-              ? `Opens at 5:30 pm`
+              ? `Opens at ${moment(openTime).format('hh:mm a')}`
+              : moment().isAfter(closeTime)
+              ? `Opens at ${moment(openTime).format('hh:mm a')} tomorrow`
               : ''}
           </div>
         </section>

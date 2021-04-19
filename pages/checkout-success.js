@@ -117,6 +117,17 @@ const CheckoutSuccess = ({ orderId, refreshCart, setGlobalCart }) => {
                     />
                   </Row>
                 )}
+                {order && !!order.discountInCents && (
+                  <Row className='justify-content-start checkout-success-item'>
+                    <CartItemCheckout
+                      cartItem={{
+                        quantity: 1,
+                        totalPrice: order.discountInCents,
+                        item: { image: '', title: 'Cash Discount 10%' },
+                      }}
+                    />
+                  </Row>
+                )}
                 {order.option === 'delivery' && (
                   <Row className='justify-content-start checkout-success-item'>
                     <CartItemCheckout

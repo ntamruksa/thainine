@@ -1,7 +1,8 @@
-import { Container } from 'react-bootstrap'
+import { Container, Form } from 'react-bootstrap'
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import CheckoutCart from '../components/checkout/CheckoutCart'
+import CheckoutCartByCash from '../components/checkout/CheckoutCartByCash'
 import { getCart } from '../services/cart'
 import api from '../services/API'
 import CheckoutOrderDetail from '../components/checkout/CheckoutOrderDetail'
@@ -25,6 +26,7 @@ export default function Checkout() {
     dateConfig?.date === todayDate
   )
 
+  const [isCash, setIsCash] = useState(false)
   const [cart, setCart] = useState(getCart())
   const [errorMessage, setErrorMessage] = useState(null)
   const [isPickup, setIsPickup] = useState(true)
@@ -39,23 +41,46 @@ export default function Checkout() {
   const selectPickup = () => {
     setIsPickup(true)
     setIsDelivery(false)
+    setIsCash(false)
     if (
       cart.deliveryFeeInCents &&
       cart.deliveryFeeInCents === deliveryFeeInCentsConst
     ) {
-      setCart({
-        ...cart,
-        deliveryFeeInCents: 0,
-        cartTotal: cart.cartTotal - cart.deliveryFeeInCents,
-        cartSubTotal: cart.cartTotal - cart.deliveryFeeInCents,
-      })
+      if (cart.discountInCents) {
+        setCart({
+          ...cart,
+          deliveryFeeInCents: 0,
+          discountInCents: 0,
+          cartTotal: cart.cartTotal - cart.deliveryFeeInCents - cart.discountInCents,
+          cartSubTotal: cart.cartTotal - cart.deliveryFeeInCents - cart.discountInCents,
+        })
+      } else {
+        setCart({
+          ...cart,
+          deliveryFeeInCents: 0,
+          cartTotal: cart.cartTotal - cart.deliveryFeeInCents,
+          cartSubTotal: cart.cartTotal - cart.deliveryFeeInCents,
+        })
+      }
+
     } else {
-      setCart({ ...cart, deliveryFeeInCents: 0 })
+      if (cart.discountInCents) {
+        setCart({
+          ...cart,
+          deliveryFeeInCents: 0,
+          discountInCents: 0,
+          cartTotal: cart.cartTotal - cart.discountInCents,
+          cartSubTotal: cart.cartTotal - cart.discountInCents,
+        })
+      } else {
+        setCart({ ...cart, deliveryFeeInCents: 0 })
+      }
     }
   }
   const selectDelivery = () => {
     setIsPickup(false)
     setIsDelivery(true)
+    setIsCash(false)
     if (!cart.deliveryFeeInCents || cart.deliveryFeeInCents === 0) {
       setCart({
         ...cart,
@@ -65,6 +90,34 @@ export default function Checkout() {
       })
     } else {
       setCart({ ...cart, deliveryFeeInCents: deliveryFeeInCentsConst })
+    }
+  }
+  const selectCashDelivery = () => {
+    const currentTotal = cart.items.reduce(
+      (tally, cartItem) => tally + (cartItem.quantity * cartItem.totalPrice), 0
+    )
+    const discountInCents = -(currentTotal * .1)
+    if (!cart.discountInCents || cart.discountInCents === 0) {
+      setCart({
+        ...cart,
+        discountInCents: discountInCents,
+        cartTotal: cart.cartTotal + discountInCents,
+        cartSubTotal: cart.cartTotal + discountInCents,
+      })
+    } else {
+      setCart({ ...cart, discountInCents: discountInCents })
+    }
+  }
+  const selectCardDelivery = () => {
+    if (cart.discountInCents || cart.discountInCents) {
+     setCart({
+        ...cart,
+        discountInCents: 0,
+        cartTotal: cart.cartTotal - cart.discountInCents,
+        cartSubTotal: cart.cartTotal - cart.discountInCents,
+      })
+    } else {
+     setCart({ ...cart, discountInCents: 0 })
     }
   }
   const availableTime = Number(
@@ -131,6 +184,13 @@ export default function Checkout() {
         pickupTime: undefined,
       })
       setAddress(e.fullAddress)
+    } else if (e.target.id === 'formPayCash') {
+      setIsCash(e.target.checked)
+      if (e.target.checked && isDelivery) {
+        selectCashDelivery()
+      } else {
+        selectCardDelivery()
+      }
     }
   }
 
@@ -183,11 +243,30 @@ export default function Checkout() {
                 />
               )}
               <CheckoutOrderDetail cart={cart} />
-              <CheckoutCart
-                cart={cart}
-                isValid={isValid}
-                errorMessage={errorMessage}
-              />
+              <Form.Group
+                controlId='formPayCash'
+                className='u-margin-bottom-med'>
+                <Form.Check
+                  className='form-checkbox paragraph'
+                  type='checkbox'
+                  label={isPickup ?`Pay at restaurant on pickup` : `Pay cash on delivery (10% discount)`}
+                  checked={isCash}
+                  onClick={handleInputChange}
+                />
+              </Form.Group>
+              {isCash ? (
+                <CheckoutCartByCash
+                  cart={cart}
+                  isValid={isValid}
+                  errorMessage={errorMessage}
+                />
+              ) : (
+                <CheckoutCart
+                  cart={cart}
+                  isValid={isValid}
+                  errorMessage={errorMessage}
+                />
+              )}
             </div>
           </>
         ) : (

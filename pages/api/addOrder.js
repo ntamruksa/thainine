@@ -33,6 +33,7 @@ export default async (req, res) => {
     address: cart.address,
     option: cart.option,
     deliveryFeeInCents: cart.deliveryFeeInCents,
+    discountInCents: cart.discountInCents || 0
   }
   // for delivery order, calculate estimate deliver time from createdDate
   const { etaMins } = await db

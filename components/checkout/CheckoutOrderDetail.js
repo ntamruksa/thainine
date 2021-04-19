@@ -15,7 +15,24 @@ const CheckoutOrderDetail = ({ cart }) => {
             cart.items.map((cartItem, idx) => (
               <CartItemCheckout key={idx} cartItem={cartItem} />
             ))}
-            {cart && cart.deliveryFeeInCents > 0 && <CartItemCheckout cartItem={{quantity: 1, totalPrice: cart.deliveryFeeInCents, item: {image: '', title: 'Delivery Fee'}}} />}
+          {cart && !!cart.discountInCents && (
+            <CartItemCheckout
+              cartItem={{
+                quantity: 1,
+                totalPrice: cart.discountInCents,
+                item: { image: '', title: 'Cash Discount 10%' },
+              }}
+            />
+          )}
+          {cart && cart.deliveryFeeInCents > 0 && (
+            <CartItemCheckout
+              cartItem={{
+                quantity: 1,
+                totalPrice: cart.deliveryFeeInCents,
+                item: { image: '', title: 'Delivery Fee' },
+              }}
+            />
+          )}{' '}
         </ul>
         <footer>
           <h2>TOTAL (inc.GST) {cart && formatMoney(cart.cartSubTotal)}</h2>

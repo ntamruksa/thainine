@@ -13,7 +13,7 @@ const CheckoutPickupDetail = ({
 }) => {
   return (
     <div>
-      <p>** Order to be picked up at Shop2A, 122 Edinburgh Rd. Castlecrag, NSW 2068 **</p>
+      <p>** Order to be picked up at Shop 8, 3 Vista st. Mosman, NSW 2088 **</p>
       <Form className='form'>
         <Form.Group>
           <Form.Label>Pickup Time</Form.Label>

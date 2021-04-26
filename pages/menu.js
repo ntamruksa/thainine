@@ -35,17 +35,33 @@ const Menu = ({ hideCart, setGlobalCart }) => {
       <Container>
         <section className='section section-banner'>
           <div className='notification'>
-            {businessHours?.isTodayClosed
-              ? `Online order closed today`
-              : businessHours?.closedDays?.includes(today)
-              ? `Restaurant is closed today`
-              : dateConfig?.date === todayDate
-              ? `Restaurant is closed today`
-              : moment().isBefore(openTime)
-              ? `Opens at ${moment(openTime).format('hh:mm a')}`
-              : moment().isAfter(closeTime)
-              ? `Opens at ${moment(openTime).format('hh:mm a')} tomorrow`
-              : ''}
+            {businessHours?.isTodayClosed ? (
+              `Online order closed today`
+            ) : businessHours?.closedDays?.includes(today) ? (
+              `Restaurant is closed today`
+            ) : dateConfig?.date === todayDate ? (
+              `Restaurant is closed today`
+            ) : moment().isBefore(openTime) ? (
+              `Opens at ${moment(openTime).format('hh:mm a')}`
+            ) : moment().isAfter(closeTime) ? (
+              `Opens at ${moment(openTime).format('hh:mm a')} tomorrow`
+            ) : (
+              <div>
+                <h1 className='notification'>
+                  {' '}
+                  online Special offer<br></br> Get a free rice for every $35
+                  spent
+                </h1>
+                <p>
+                  Terms and Conditions: * For every $35 spending (price after
+                  any discount) you will receive a free serve of boiled rice *
+                  Offer available from 27/04/2021 until 9:30pm AEST 30/05/2021
+                  ** Offer only available for online order via
+                  www.thaininemosman.com website. ** This offer cannot be used in
+                  conjuntion with any other promotion.{' '}
+                </p>
+              </div>
+            )}
           </div>
         </section>
         {isLoading ? (

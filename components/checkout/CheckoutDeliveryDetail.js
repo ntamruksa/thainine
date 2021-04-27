@@ -12,7 +12,7 @@ const CheckoutDeliveryDetail = ({
     <div>
       <h2 className='my-4'>
         Usually delivery time is 30 mins, However if any delay occur we will
-        email you after confirm the order.
+        email you after confirm the order. Delivery started from 6pm.
       </h2>
       <p>
         ** Delivery fee is $3 and we are currently deliver to Mosman, Cremorne,

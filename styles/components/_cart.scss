@@ -43,13 +43,17 @@
     h1 {
       margin: 0;
     }
+    bottom: 0;
   }
   ul {
     margin: 0;
     padding: 0;
     list-style: none;
     overflow: scroll;
+    -webkit-overflow-scrolling: touch;
   }
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .cart-checkout {

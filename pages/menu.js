@@ -55,7 +55,7 @@ const Menu = ({ hideCart, setGlobalCart }) => {
                 <p>
                   Terms and Conditions: * For every $35 spending (price after
                   any discount) you will receive a free serve of boiled rice *
-                  Offer available from 27/04/2021 until 9:30pm AEST 30/05/2021
+                  Offer available from 27/04/2021 until 9:30pm AEST 30/06/2021
                   ** Offer only available for online order via
                   www.thaininemosman.com website. ** This offer cannot be used in
                   conjuntion with any other promotion.{' '}

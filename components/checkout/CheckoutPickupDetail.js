@@ -11,41 +11,22 @@ const CheckoutPickupDetail = ({
   availableTime,
   handleTimeChange,
 }) => {
+  const defaultPickupTime = timeList.filter((t) => t.value >= availableTime)[0]?.label
   return (
     <div>
       <p>** Order to be picked up at Shop 8, 3 Vista st. Mosman, NSW 2088 **</p>
       <Form className='form'>
         <Form.Group>
           <Form.Label>Pickup Time</Form.Label>
-          <ToggleButtonGroup size='lg' className='m-2 flex-wrap' name='time'>
+          <ToggleButtonGroup size='lg' className='m-2 flex-wrap' name='time' defaultValue={defaultPickupTime}>
             {timeList.map((t) => {
               if (
                 blockedTimeList.blockedTime &&
                 blockedTimeList.blockedTime.includes(t.id)
               ) {
-                return (
-                  <ToggleButton
-                    name='time'
-                    variant='outline-dark'
-                    className='btn m-2 flex-grow-0'
-                    disabled
-                    value={t.label}
-                    key={t.label}>
-                    {t.label}
-                  </ToggleButton>
-                )
+                return <></>
               } else if (t.value < availableTime) {
-                return (
-                  <ToggleButton
-                    name='time'
-                    variant='outline-dark'
-                    className='btn m-2 flex-grow-0'
-                    disabled
-                    value={t.label}
-                    key={t.label}>
-                    {t.label}
-                  </ToggleButton>
-                )
+                return <></>
               } else {
                 return (
                   <ToggleButton

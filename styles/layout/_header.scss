@@ -64,3 +64,13 @@
   margin: 4px 10px 0 0;
   padding-left: 1px;
 }
+.site-nav--basket {
+  padding-left: 40%;
+  display: none;
+  @include respond(phone) {
+    display: inline;
+  }
+  @include respond(tab-port) {
+    display: inline;
+  }
+}

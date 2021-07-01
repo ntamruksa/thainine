@@ -31,16 +31,27 @@ const NavPage = ({ toggleCart, globalCart }) => {
               />
             </Nav.Link>
           </Navbar.Brand>
-          {/* <Link
-            href='/checkout'
-            className='navbar-toggler navbar-toggler--cart'
-            style={{
-              background: 'transparent',
-              borderColor: 'transparent',
-              color: '#F27A25'
-            }}>
-            <Icon icon='shopping-basket' size='2x' />
-          </Link> */}
+          <div className='site-nav--basket'>
+          <Link href='#' passHref>
+            <Nav.Link activeclassname='active'>
+              <Row
+                className='nav-cart justify-content-center'
+                onClick={toggleCart}>
+                <Icon icon='shopping-basket' width='18' />
+                <CartCount
+                  count={
+                    globalCart
+                      ? globalCart.items.reduce(
+                          (tally, cartItem) => tally + cartItem.quantity,
+                          0
+                        )
+                      : 0
+                  }
+                />
+              </Row>
+            </Nav.Link>
+          </Link>
+          </div>
           <Navbar.Toggle className='hamburgerbar' />
           <Navbar.Collapse id='navbarNavDropdown'>
             <Nav activeKey={1} className='ml-auto' onSelect={closeMenu}>

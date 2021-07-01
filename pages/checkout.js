@@ -10,6 +10,28 @@ import CheckoutPickupDetail from '../components/checkout/CheckoutPickupDetail'
 import CheckoutDeliveryDetail from '../components/checkout/CheckoutDeliveryDetail'
 import OrderOptions from '../components/checkout/OrderOptions'
 export default function Checkout() {
+  const availableTime = Number(
+    moment().add(20, 'minutes').hours().toString() +
+      moment().add(20, 'minutes').minutes().toString().padStart(2, '0')
+  )
+  const timeList = [
+    { id: 600, label: '6:00 pm', value: 1800 },
+    { id: 615, label: '6:15 pm', value: 1815 },
+    { id: 630, label: '6:30 pm', value: 1830 },
+    { id: 645, label: '6:45 pm', value: 1845 },
+    { id: 700, label: '7:00 pm', value: 1900 },
+    { id: 715, label: '7:15 pm', value: 1915 },
+    { id: 730, label: '7:30 pm', value: 1930 },
+    { id: 745, label: '7:45 pm', value: 1945 },
+    { id: 800, label: '8:00 pm', value: 2000 },
+    { id: 815, label: '8:15 pm', value: 2015 },
+    { id: 830, label: '8:30 pm', value: 2030 },
+    { id: 845, label: '8:45 pm', value: 2045 },
+    { id: 900, label: '9:00 pm', value: 2100 },
+    // { id: 915, label: '9:15 pm', value: 2115 },
+    // { id: 930, label: '9:30 pm', value: 2130 },
+  ]
+  const defaultPickupTime = timeList.filter((t) => t.value >= availableTime)[0]?.label
   // check if shop is open first for checkout
   const timeFormat = 'hh:mm:ss'
   const todayDate = moment().format('DD-MM-yyyy')
@@ -25,7 +47,6 @@ export default function Checkout() {
     moment().isAfter(closeTime) ||
     dateConfig?.date === todayDate
   )
-
   const [isCash, setIsCash] = useState(false)
   const [cart, setCart] = useState(getCart())
   const [errorMessage, setErrorMessage] = useState(null)
@@ -76,6 +97,14 @@ export default function Checkout() {
         setCart({ ...cart, deliveryFeeInCents: 0 })
       }
     }
+    // set default pickup time
+    setTime(defaultPickupTime)
+    setCart({
+      ...cart,
+      pickupTime: defaultPickupTime,
+      option: 'pickup',
+      address: undefined,
+    })
   }
   const selectDelivery = () => {
     setIsPickup(false)
@@ -120,27 +149,17 @@ export default function Checkout() {
      setCart({ ...cart, discountInCents: 0 })
     }
   }
-  const availableTime = Number(
-    moment().add(20, 'minutes').hours().toString() +
-      moment().add(20, 'minutes').minutes().toString().padStart(2, "0")
-  )
-  const timeList = [
-    { id: 600, label: '6:00 pm', value: 1800 },
-    { id: 615, label: '6:15 pm', value: 1815 },
-    { id: 630, label: '6:30 pm', value: 1830 },
-    { id: 645, label: '6:45 pm', value: 1845 },
-    { id: 700, label: '7:00 pm', value: 1900 },
-    { id: 715, label: '7:15 pm', value: 1915 },
-    { id: 730, label: '7:30 pm', value: 1930 },
-    { id: 745, label: '7:45 pm', value: 1945 },
-    { id: 800, label: '8:00 pm', value: 2000 },
-    { id: 815, label: '8:15 pm', value: 2015 },
-    { id: 830, label: '8:30 pm', value: 2030 },
-    { id: 845, label: '8:45 pm', value: 2045 },
-    { id: 900, label: '9:00 pm', value: 2100 },
-    { id: 915, label: '9:15 pm', value: 2115 },
-    { id: 930, label: '9:30 pm', value: 2130 },
-  ]
+  useEffect(() => {
+    if (isPickup && !time) {
+      setTime(defaultPickupTime)
+      setCart({
+        ...cart,
+        pickupTime: defaultPickupTime,
+        option: 'pickup',
+        address: undefined,
+      })
+    }
+  }, [])
   const [isValid, setIsValid] = useState(null)
   useEffect(() => {
     const validPhoneNumber = (n) =>

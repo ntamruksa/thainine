@@ -220,6 +220,7 @@ export default function Checkout() {
       pickupTime: e.target.value,
       option: 'pickup',
       address: undefined,
+      scheduled: true,
     })
   }
 

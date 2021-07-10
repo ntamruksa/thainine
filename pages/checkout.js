@@ -52,9 +52,9 @@ export default function Checkout() {
   const [errorMessage, setErrorMessage] = useState(null)
   const [isPickup, setIsPickup] = useState(true)
   const [isDelivery, setIsDelivery] = useState(false)
-  const [email, setEmail] = useState('')
-  const [pickupName, setPickupName] = useState('')
-  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState(process.browser ? localStorage.getItem('email') :'')
+  const [pickupName, setPickupName] = useState(process.browser ? localStorage.getItem('pickupName') :'')
+  const [phone, setPhone] = useState(process.browser ? localStorage.getItem('phone') :'')
   const [blockedTimeList, setBlockedTimeList] = useState({ blockedTime: [] })
   const [time, setTime] = useState(null)
   const [address, setAddress] = useState('')
@@ -157,6 +157,9 @@ export default function Checkout() {
         pickupTime: defaultPickupTime,
         option: 'pickup',
         address: undefined,
+        email,
+        phone,
+        pickupName,
       })
     }
   }, [])

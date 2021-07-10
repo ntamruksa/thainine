@@ -18,6 +18,9 @@ export default function CardForm({ isValid, cart, errorMessage }) {
     cart.paymentMethodId = 'cash'
     const response = await api.addOrder(cart)
     console.log('response', response)
+    localStorage.setItem('email', cart.email);
+    localStorage.setItem('pickupName', cart.pickupName);
+    localStorage.setItem('phone', cart.phone);
     router.push({
       pathname: `/checkout-success`,
       query: { orderId: response.orderId },
